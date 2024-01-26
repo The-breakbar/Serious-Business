@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdqocslrnhav1"]
+
+[ext_resource type="Script" path="res://RigidBody2D.gd" id="1_sujkg"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+script = ExtResource("1_sujkg")
