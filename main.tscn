@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bdqocslrnhav1"]
 
 [ext_resource type="Texture2D" uid="uid://37v22seis3f1" path="res://assets/funny_cat.png" id="1_3sbl5"]
-[ext_resource type="FontFile" uid="uid://dr04ofgwja8ht" path="res://assets/retro_font.ttf" id="2_x8s0m"]
+[ext_resource type="Theme" uid="uid://vj12bkoc4uf0" path="res://pixel.tres" id="2_b68rq"]
 
 [node name="main" type="Node"]
 
@@ -38,7 +38,6 @@ offset_left = -47.5
 offset_right = 47.5
 offset_bottom = 23.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_x8s0m")
-theme_override_font_sizes/font_size = 16
+theme = ExtResource("2_b68rq")
 text = "Bingus Bongus
 "
