@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bdqocslrnhav1"]
 
-[ext_resource type="Texture2D" uid="uid://bole7hj0wxto5" path="res://assets/bg.png" id="1_0ynl3"]
+[ext_resource type="Texture2D" uid="uid://bole7hj0wxto5" path="res://assets/bg_0.png" id="1_0ynl3"]
 [ext_resource type="Texture2D" uid="uid://37v22seis3f1" path="res://assets/funny_cat.png" id="1_3sbl5"]
 [ext_resource type="FontFile" uid="uid://dr04ofgwja8ht" path="res://assets/retro_font.ttf" id="2_x8s0m"]
 [ext_resource type="PackedScene" path="res://Card.tscn" id="3_srrdw"]
