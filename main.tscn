@@ -5,10 +5,17 @@
 [ext_resource type="FontFile" uid="uid://dr04ofgwja8ht" path="res://assets/retro_font.ttf" id="2_x8s0m"]
 [ext_resource type="PackedScene" path="res://Card.tscn" id="3_srrdw"]
 
-[node name="main" type="Node"]
+[node name="main" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="background" type="Control" parent="."]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -39,6 +46,7 @@ texture = ExtResource("1_3sbl5")
 
 [node name="board#Label" type="Label" parent="."]
 visible = false
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -55,6 +63,7 @@ visible = false
 
 [node name="boardOld" type="VBoxContainer" parent="."]
 visible = false
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -117,7 +126,7 @@ layout_mode = 2
 texture = ExtResource("1_3sbl5")
 
 [node name="board" type="Control" parent="."]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
