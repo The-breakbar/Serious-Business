@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdqocslrnhav1"]
+[gd_scene load_steps=4 format=3 uid="uid://bdqocslrnhav1"]
 
 [ext_resource type="Texture2D" uid="uid://37v22seis3f1" path="res://assets/funny_cat.png" id="1_3sbl5"]
-[ext_resource type="Script" path="res://board.gd" id="1_rvicx"]
 [ext_resource type="FontFile" uid="uid://dr04ofgwja8ht" path="res://assets/retro_font.ttf" id="2_x8s0m"]
 [ext_resource type="PackedScene" uid="uid://bwficpr05ntg" path="res://Card.tscn" id="3_srrdw"]
 
@@ -14,7 +13,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_rvicx")
 
 [node name="ColorRect" type="ColorRect" parent="board"]
 layout_mode = 1
