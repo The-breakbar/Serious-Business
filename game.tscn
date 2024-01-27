@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://du25frwktke07"]
+[gd_scene load_steps=7 format=3 uid="uid://du25frwktke07"]
 
 [ext_resource type="Texture2D" uid="uid://can27n8dffoth" path="res://assets/bg_3.png" id="1_cyhl0"]
-[ext_resource type="Texture2D" uid="uid://s7jbsxpn1a2b" path="res://assets/gradient.png" id="2_h4xnb"]
 [ext_resource type="Script" path="res://game.gd" id="1_svep8"]
+[ext_resource type="Texture2D" uid="uid://s7jbsxpn1a2b" path="res://assets/gradient.png" id="2_h4xnb"]
 [ext_resource type="PackedScene" uid="uid://cttcw5gtidtkc" path="res://playerCard.tscn" id="2_jxatm"]
 [ext_resource type="Texture2D" uid="uid://ctle12uhmh0s" path="res://assets/cards/blankEnemyFull.png" id="4_rvegr"]
 [ext_resource type="Texture2D" uid="uid://drkirg7bed530" path="res://assets/cards/blankPlayerFull.png" id="5_5v57v"]
