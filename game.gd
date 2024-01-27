@@ -32,7 +32,7 @@ func load_cards():
 func draw_card(player: Player):
 	if card_array.size() > 0:
 		var random_index = randi() % card_array.size()
-		var drawn_card = card_array[random_index].instance()
+		var drawn_card = card_array[random_index]
 		
 		if player == Player.Player:
 			player_cards.push_back(drawn_card)
