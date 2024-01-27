@@ -8,12 +8,21 @@ enum State {Start, PlayerTurn, EnemyTurn, End}
 var gameState: State = State.Start;
 
 enum Player {Player, Enemy}
-enum Card {Card}
+enum Card {blank}
 func getCardName(card: Card) -> String:
 	return Card.keys()[card]
 
+func getCardId(cardName: String) -> Card:
+	return Card.values()[Card.keys().find(cardName)]
+
+var player_card_container: Node
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
+
+	player_card_container = get_node("player/playerContainer")
+
 	# Load all cards into array
 	load_cards()
 	# Draw 3 cards for each player
@@ -24,8 +33,9 @@ func _ready():
 
 func load_cards():
 	# Load all cardnames into array
-	for card in Card:
+	for card in Card.values():
 		card_array.push_back(card)
+	print("card_array: ", card_array)
 
 
 # Function to draw a random card from the array
@@ -36,6 +46,7 @@ func draw_card(player: Player):
 		
 		if player == Player.Player:
 			player_cards.push_back(drawn_card)
+			add_card_to_hand_scene(drawn_card, Player.Player)
 		else:
 			enemy_cards.push_back(drawn_card)
 		# You can add further logic here, e.g., for skipping a turn
@@ -43,6 +54,14 @@ func draw_card(player: Player):
 		return drawn_card
 	else:
 		return null
+
+func add_card_to_hand_scene(card: Card, player: Player):
+	var card_scene = load("res://playerCard.tscn")
+	print("getCardName(card): ", getCardName(card))
+	card_scene.instantiate()
+	card_scene.set_image(getCardName(card))
+	player_card_container.add_child(card_scene)
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
