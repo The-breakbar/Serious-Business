@@ -4,10 +4,11 @@
 [ext_resource type="Script" path="res://board.gd" id="1_rvicx"]
 [ext_resource type="FontFile" uid="uid://dr04ofgwja8ht" path="res://assets/retro_font.ttf" id="2_x8s0m"]
 [ext_resource type="PackedScene" uid="uid://bwficpr05ntg" path="res://Card.tscn" id="3_srrdw"]
+[ext_resource type="Texture2D" uid="uid://bole7hj0wxto5" path="res://assets/bg.png" id="1_0ynl3"]
 
 [node name="main" type="Node"]
 
-[node name="board" type="Control" parent="."]
+[node name="background" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,15 +16,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rvicx")
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="ColorRect" type="ColorRect" parent="board"]
+[node name="TextureRect" type="TextureRect" parent="background"]
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -65.0
-offset_bottom = 88.0
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.705882, 0.85098, 0.988235, 1)
@@ -43,7 +49,8 @@ offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_x8s0m")
 theme_override_font_sizes/font_size = 16
-text = "Bingus Bongus
-"
+text = "Bingus Bongus"
 
 [node name="Card" parent="board" instance=ExtResource("3_srrdw")]
+texture = ExtResource("1_0ynl3")
+stretch_mode = 2
