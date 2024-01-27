@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cttcw5gtidtkc"]
 
 [ext_resource type="Script" path="res://playerCard.gd" id="1_4wr74"]
-[ext_resource type="Texture2D" uid="uid://c0tcghkpcyjrg" path="res://assets/cards/blankFull.png" id="2_f77u8"]
+[ext_resource type="Texture2D" uid="uid://qgkg3dg7v3c8" path="res://assets/cards/blank.png" id="2_lnrme"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(120, 130)
@@ -20,6 +20,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_f77u8")
+texture = ExtResource("2_lnrme")
 
 [connection signal="focus_entered" from="image" to="." method="_on_color_rect_focus_entered"]

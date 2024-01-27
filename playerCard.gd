@@ -1,6 +1,6 @@
 extends Control
 
-@export var image = "troll"
+@export var image = "blank"
 
 signal clicked(name)
 
@@ -12,11 +12,21 @@ func set_image(image_name: String):
 	var texture_rect = get_node("image")
 	var texture = load("res://assets/cards/" + image_name + ".png")
 	texture_rect.texture = texture
+	
+func get_image():
+	return image
 
 func _process(delta):
 	pass
 
 # if clicked on the card, emit the signal
 func _input(event):
-	if event is InputEventMouseButton:
-		emit_signal("clicked", image)
+	if is_mouse_over():
+		if event is InputEventMouseButton:
+			emit_signal("clicked", image)
+
+func is_mouse_over() -> bool:
+	var mouse_pos = get_global_mouse_position()
+	var rect = get_global_rect()
+
+	return rect.has_point(mouse_pos)
