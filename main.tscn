@@ -1,11 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdqocslrnhav1"]
+[gd_scene load_steps=6 format=3 uid="uid://bdqocslrnhav1"]
 
+[ext_resource type="Texture2D" uid="uid://bole7hj0wxto5" path="res://assets/bg.png" id="1_0ynl3"]
 [ext_resource type="Texture2D" uid="uid://37v22seis3f1" path="res://assets/funny_cat.png" id="1_3sbl5"]
 [ext_resource type="Script" path="res://board.gd" id="1_rvicx"]
 [ext_resource type="FontFile" uid="uid://dr04ofgwja8ht" path="res://assets/retro_font.ttf" id="2_x8s0m"]
-[ext_resource type="PackedScene" uid="uid://bwficpr05ntg" path="res://Card.tscn" id="3_srrdw"]
-[ext_resource type="Texture2D" uid="uid://bole7hj0wxto5" path="res://assets/bg.png" id="1_0ynl3"]
-[ext_resource type="Texture2D" uid="uid://37v22seis3f1" path="res://assets/funny_cat.png" id="1_3sbl5"]
+[ext_resource type="PackedScene" path="res://Card.tscn" id="3_srrdw"]
 
 [node name="main" type="Node"]
 
@@ -16,9 +15,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_rvicx")
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("1_rvicx")
 
 [node name="TextureRect" type="TextureRect" parent="background"]
 layout_mode = 1
@@ -33,14 +32,13 @@ offset_right = 320.0
 offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.705882, 0.85098, 0.988235, 1)
+texture = ExtResource("1_0ynl3")
 
-[node name="Sprite2D" type="Sprite2D" parent="board/ColorRect"]
+[node name="board_ColorRect#Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(332, 80)
 texture = ExtResource("1_3sbl5")
 
-[node name="Label" type="Label" parent="board"]
-layout_mode = 1
+[node name="board#Label" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -52,9 +50,7 @@ theme_override_fonts/font = ExtResource("2_x8s0m")
 theme_override_font_sizes/font_size = 16
 text = "Bingus Bongus"
 
-[node name="Card" parent="board" instance=ExtResource("3_srrdw")]
-texture = ExtResource("1_0ynl3")
-stretch_mode = 2
+[node name="board#Card" parent="." instance=ExtResource("3_srrdw")]
 
 [node name="board" type="Control" parent="."]
 layout_mode = 3
