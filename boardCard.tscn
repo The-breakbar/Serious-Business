@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cvjc2rxftcl6y"]
 
-[ext_resource type="Texture2D" uid="uid://bxi5xd1i51phr" path="res://assets/cards/trollFull.png" id="1_e2v31"]
 [ext_resource type="Script" path="res://boardCard.gd" id="1_tr55y"]
+[ext_resource type="Texture2D" uid="uid://c0tcghkpcyjrg" path="res://assets/cards/blankFull.png" id="2_mvcbg"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(120, 130)
@@ -20,4 +20,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_e2v31")
+texture = ExtResource("2_mvcbg")
