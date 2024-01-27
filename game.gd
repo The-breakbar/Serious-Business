@@ -4,7 +4,9 @@ var card_array: Array = [] # Array of Card (enum)
 var player_cards: Array = []
 var enemy_cards: Array = []
 
-enum State {PlayerAttack, EnemyAttack, PlayerDefend, EnemyDefend, TurnEnd}
+enum State {Attack, Defense, TurnEnd}
+func get_state_name(state: State) -> String:
+	return State.keys()[state]
 var player_first: bool
 var gameState: State
 
@@ -34,7 +36,7 @@ func reset_game():
 	player_cards = []
 	enemy_cards = []
 	gameState = State.TurnEnd
-	player_first = true
+	player_first = false
 
 	# reset board
 	player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
@@ -87,12 +89,15 @@ func add_card_to_hand_scene(card: Card, player: Player):
 
 	player_card_container.add_child(card_instance)
 
+func player_turn() -> bool:
+	return (gameState == State.Attack && player_first) || (gameState == State.Defense && !player_first)
 
 func card_selected(name: String):
-	if (gameState != State.PlayerAttack || gameState != State.PlayerDefend):
+	# if (gameState != State.PlayerAttack && gameState != State.PlayerDefend):
+	if !player_turn():
 		return
-
-	gameState = State.EnemyDefend if player_first else State.TurnEnd
+	
+	# gameState = State.EnemyDefend if player_first else State.TurnEnd
 	player_board_container.texture = load("res://assets/cards/" + name + ".png")
 
 	# remove this card from player_cards
@@ -123,12 +128,20 @@ func play_enemy_turn():
 	enemy_board_container.texture = load("res://assets/cards/" + card_name + ".png")
 
 func next_turn():
-	if (gameState == State.TurnEnd):
-		gameState = State.PlayerAttack if player_first else State.EnemyAttack
+	# if (gameState == State.TurnEnd):
+	# 	gameState = State.PlayerAttack if player_first else State.EnemyAttack
+	# 	player_first = !player_first
+	# elif (gameState == State.EnemyAttack || gameState == State.EnemyDefend):
+	# 	play_enemy_turn()
+	# 	gameState = State.PlayerDefend if !player_first else State.TurnEnd
+
+	if gameState == State.TurnEnd:
 		player_first = !player_first
-	elif (gameState == State.EnemyAttack || gameState == State.EnemyDefend):
-		play_enemy_turn()
-		gameState = State.PlayerDefend if !player_first else State.TurnEnd
+		gameState = 0
+	else:
+		gameState = gameState + 1
+
+	print("next turn gameState: ", get_state_name(gameState), " for player ", "player" if player_turn() else "enemy")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
