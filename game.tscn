@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://du25frwktke07"]
+[gd_scene load_steps=5 format=3 uid="uid://du25frwktke07"]
 
 [ext_resource type="Texture2D" uid="uid://can27n8dffoth" path="res://assets/bg_3.png" id="1_cyhl0"]
+[ext_resource type="Script" path="res://game.gd" id="1_svep8"]
 [ext_resource type="PackedScene" uid="uid://cttcw5gtidtkc" path="res://playerCard.tscn" id="2_jxatm"]
 [ext_resource type="PackedScene" uid="uid://cvjc2rxftcl6y" path="res://boardCard.tscn" id="3_rsgit"]
 
@@ -21,6 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("1_svep8")
 
 [node name="bg" type="TextureRect" parent="."]
 layout_mode = 1
