@@ -9,7 +9,7 @@ var player_first: bool
 var gameState: State
 
 enum Player {Player, Enemy}
-enum Card {blank}
+enum Card {troll}
 func getCardName(card: Card) -> String:
 	return Card.keys()[card]
 
@@ -35,6 +35,10 @@ func reset_game():
 	enemy_cards = []
 	gameState = State.TurnEnd
 	player_first = true
+
+	# reset board
+	player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
+	enemy_board_container.texture = load("res://assets/cards/blankEnemyFull.png")
 
 	# Remove all children from player_card_container
 	for child in player_card_container.get_children():
