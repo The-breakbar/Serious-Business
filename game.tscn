@@ -27,7 +27,7 @@ animations = [{
 "texture": ExtResource("4_ppal6")
 }],
 "loop": true,
-"name": &"stage0",
+"name": &"0",
 "speed": 1.0
 }, {
 "frames": [{
@@ -38,7 +38,7 @@ animations = [{
 "texture": ExtResource("5_1pvh4")
 }],
 "loop": true,
-"name": &"stage1",
+"name": &"1",
 "speed": 1.0
 }, {
 "frames": [{
@@ -49,7 +49,7 @@ animations = [{
 "texture": ExtResource("7_obbly")
 }],
 "loop": true,
-"name": &"stage2",
+"name": &"2",
 "speed": 1.0
 }, {
 "frames": [{
@@ -60,7 +60,7 @@ animations = [{
 "texture": ExtResource("9_6s40y")
 }],
 "loop": true,
-"name": &"stage3",
+"name": &"3",
 "speed": 1.0
 }]
 
@@ -83,11 +83,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_svep8")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="animatedBg" type="AnimatedSprite2D" parent="."]
 position = Vector2(320, 180)
 sprite_frames = SubResource("SpriteFrames_kl230")
-animation = &"stage0"
-autoplay = "stage0"
+animation = &"3"
+autoplay = "0"
 
 [node name="player" type="Control" parent="."]
 layout_mode = 1

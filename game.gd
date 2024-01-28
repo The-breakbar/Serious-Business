@@ -25,11 +25,15 @@ var enemy_board_container: Node
 var placed_enemy_card: String
 
 var board_damage: Node
+var animated_bg: Node
 
 
 # health
+var MAX_PLAYER_HEALTH: int = 5
 var player_health: int
 var additional_damage_to_player_per_turn: int = 0
+
+var MAX_ENEMY_HEALTH: int = 5
 var enemy_health: int
 var additional_damage_to_enemy_per_turn: int = 0
 
@@ -46,6 +50,7 @@ func _ready():
 	cards_db.init_cards()
 
 	board_damage = get_node("board")
+	animated_bg = get_node("animatedBg")
 
 	reset_game()
 	# game_loop()
@@ -57,8 +62,8 @@ func reset_game():
 	enemy_cards = []
 	gameState = State.Attack
 	player_first = true
-	enemy_health = 5
-	player_health = 5
+	enemy_health = MAX_ENEMY_HEALTH
+	player_health = MAX_PLAYER_HEALTH
 
 	# reset damage multipliers
 	damage_multiplier_next_round = 1
@@ -68,6 +73,8 @@ func reset_game():
 	# reset board
 	player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
 	enemy_board_container.texture = load("res://assets/cards/blankEnemyFull.png")
+
+	animated_bg.set_animation("0")
 
 	# Remove all children from player_card_container
 	for child in player_card_container.get_children():
@@ -178,6 +185,17 @@ func next_turn():
 		handle_placed_cards()
 		player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
 		enemy_board_container.texture = load("res://assets/cards/blankEnemyFull.png")
+
+		# change background animation if necessary
+		var fight_progress = 1 - float(max(0, enemy_health)) / float(MAX_ENEMY_HEALTH)
+		var animationIndex = "0"
+		if fight_progress > 0.5:
+			animationIndex = "1"
+		if fight_progress > 0.75:
+			animationIndex = "2"
+		if fight_progress == 1:
+			animationIndex = "3"
+		animated_bg.set_animation(animationIndex)
 
 		await get_tree().create_timer(2).timeout
 
