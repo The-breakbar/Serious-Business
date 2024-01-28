@@ -32,10 +32,12 @@ var animated_bg: Node
 var MAX_PLAYER_HEALTH: int = 5
 var player_health: int
 var additional_damage_to_player_per_turn: int = 0
+var next_player_card_override
 
 var MAX_ENEMY_HEALTH: int = 5
 var enemy_health: int
 var additional_damage_to_enemy_per_turn: int = 0
+var next_enemy_card_override
 
 var damage_multiplier_next_round: int = 1
 
