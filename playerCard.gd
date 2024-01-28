@@ -3,10 +3,12 @@ extends Control
 @export var image = "blank"
 
 var highlight = false
+var game_node : Node
 
 signal clicked(name)
 
 func _ready():
+	game_node = get_tree().get_root().get_node("game")
 	set_image(image)
 	
 func set_image(image_name: String):
@@ -28,7 +30,7 @@ func _input(event):
 			emit_signal("clicked", image)
 
 		# show hover effect
-		if !highlight:
+		if !highlight && game_node.is_player_turn():
 			highlight = true
 			get_node("hover").visible = true
 
