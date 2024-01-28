@@ -153,6 +153,7 @@ func play_enemy_turn():
 	# add card to enemy board
 	enemy_board_container.texture = load("res://assets/cards/" + card_name + ".png")
 	placed_enemy_card = card_name
+	draw_card(Player.Enemy)
 	next_turn()
 
 func next_turn():
@@ -202,8 +203,8 @@ func handle_placed_cards():
 	# restock cards
 	draw_card(Player.Player)
 	print("number of player cards: ", player_cards.size())
-	draw_card(Player.Enemy)
-	print("number of enemy cards: ", enemy_cards.size())
+	# draw_card(Player.Enemy)
+	# print("number of enemy cards: ", enemy_cards.size())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
