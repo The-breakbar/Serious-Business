@@ -95,12 +95,28 @@ func load_cards():
 		card_array.push_back(card)
 	print("card_array: ", card_array)
 
+func give_overriden_card_if_exists(player: Player) -> String:
+	if player == Player.Player:
+		if next_player_card_override != null:
+			var card = next_player_card_override
+			next_player_card_override = null
+			return card
+	if player == Player.Enemy:
+		if next_enemy_card_override != null:
+			var card = next_enemy_card_override
+			next_enemy_card_override = null
+			return card
+	return ""
 
 # Function to draw a random card from the array
 func draw_card(player: Player):
+	var overriden_card = give_overriden_card_if_exists(player)
 	if card_array.size() > 0:
 		var random_index = randi() % card_array.size()
 		var drawn_card = card_array[random_index]
+
+		if overriden_card != "":
+			drawn_card = getCardId(overriden_card)
 		
 		if player == Player.Player:
 			player_cards.push_back(drawn_card)
@@ -312,6 +328,11 @@ func handle_placed_cards():
 	enemy_health = enemy_health - total_enemy_damage
 	player_health = player_health - total_player_damage
 	print("player health: ", player_health, " enemy health: ", enemy_health)
+
+	if placed_player_card == getCardName(Card.crewmate):
+		next_player_card_override = placed_enemy_card
+	if placed_enemy_card == getCardName(Card.crewmate):
+		next_enemy_card_override = placed_player_card
 
 
 
