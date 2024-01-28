@@ -164,5 +164,5 @@ stretch_mode = 2
 
 [node name="bgMusic" type="AudioStreamPlayer" parent="audio"]
 stream = ExtResource("7_20hd6")
-volume_db = -28.716
+volume_db = -15.522
 autoplay = true
