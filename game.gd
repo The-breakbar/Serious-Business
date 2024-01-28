@@ -305,6 +305,12 @@ func handle_placed_cards():
 	additional_damage_to_player_per_turn += enemy_card._continuous_damage
 	additional_damage_to_enemy_per_turn += player_card._continuous_damage
 
+	# apply damage
+	print("player health: ", player_health, " enemy health: ", enemy_health)
+	enemy_health = enemy_health - total_enemy_damage
+	player_health = player_health - total_player_damage
+	print("player health: ", player_health, " enemy health: ", enemy_health)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
