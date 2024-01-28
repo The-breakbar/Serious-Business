@@ -2,6 +2,8 @@ extends Control
 
 @export var image = "blank"
 
+var highlight = false
+
 signal clicked(name)
 
 func _ready():
@@ -24,6 +26,16 @@ func _input(event):
 	if is_mouse_over():
 		if event is InputEventMouseButton:
 			emit_signal("clicked", image)
+
+		# show hover effect
+		if !highlight:
+			highlight = true
+			get_node("hover").visible = true
+
+	else:
+		if highlight:
+			highlight = false
+			get_node("hover").visible = false
 
 func is_mouse_over() -> bool:
 	var mouse_pos = get_global_mouse_position()
