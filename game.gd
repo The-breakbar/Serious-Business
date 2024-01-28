@@ -29,9 +29,9 @@ var board_damage: Node
 
 # health
 var player_health: int
-var additional_player_damage_per_turn: int = 0
+var additional_damage_to_player_per_turn: int = 0
 var enemy_health: int
-var additional_enemy_damage_per_turn: int = 0
+var additional_damage_to_enemy_per_turn: int = 0
 
 var damage_multiplier_next_round: int = 1
 
@@ -59,6 +59,11 @@ func reset_game():
 	player_first = true
 	enemy_health = 5
 	player_health = 5
+
+	# reset damage multipliers
+	damage_multiplier_next_round = 1
+	additional_damage_to_enemy_per_turn = 0
+	additional_damage_to_player_per_turn = 0
 
 	# reset board
 	player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
@@ -209,37 +214,79 @@ func handle_placed_cards():
 	var damage_difference = player_card._damage - enemy_card._damage
 	print("damage_difference: ", damage_difference)
 
-	damage_difference *= player_card._damage_multiplier_this_round
-	damage_difference *= enemy_card._damage_multiplier_this_round
-	damage_difference *= damage_multiplier_next_round
+	# damage_difference *= player_card._damage_multiplier_this_round
+	# damage_difference *= enemy_card._damage_multiplier_this_round
+	# damage_difference *= damage_multiplier_next_round
 
-	# reset damage multiplier for next round
-	damage_multiplier_next_round = 1
-	damage_multiplier_next_round *= player_card._damage_multiplier_next_round
-	damage_multiplier_next_round *= enemy_card._damage_multiplier_next_round
+	# # reset damage multiplier for next round
+	# damage_multiplier_next_round = 1
+	# damage_multiplier_next_round *= player_card._damage_multiplier_next_round
+	# damage_multiplier_next_round *= enemy_card._damage_multiplier_next_round
 
 	# if damage difference is positive, apply damage to enemy
-	if damage_difference > 0:
-		print("enemy takes damage")
-		enemy_health = enemy_health - damage_difference
-	else:
-		print("player takes damage")
-		# plus because damage_difference is negative
-		player_health = player_health + damage_difference
+	# if damage_difference > 0:
+	# 	print("enemy takes damage")
+	# 	enemy_health = enemy_health - damage_difference
+	# else:
+	# 	print("player takes damage")
+	# 	# plus because damage_difference is negative
+	# 	player_health = player_health + damage_difference
 
 	# apply additional damage per turn
-	enemy_health = enemy_health - additional_enemy_damage_per_turn
-	if additional_enemy_damage_per_turn > 0:
-		additional_enemy_damage_per_turn = additional_enemy_damage_per_turn - 1
-
-	player_health = player_health - additional_player_damage_per_turn
-	if additional_player_damage_per_turn > 0:
-		additional_player_damage_per_turn = additional_player_damage_per_turn - 1
+	# enemy_health = enemy_health - additional_damage_to_enemy_per_turn
+	# player_health = player_health - additional_damage_to_player_per_turn
 	
+	# if damage_difference < 0:
+	# 	board_damage.show_damage(damage_difference, 0)
+	# else:
+	# 	board_damage.show_damage(0, -1 * damage_difference)
+
+	# # show additional damage per turn
+	# if additional_damage_to_player_per_turn > 0:
+	# 	board_damage.show_damage(0, -1 * additional_damage_to_player_per_turn)
+	# if additional_damage_to_enemy_per_turn > 0:
+	# 	board_damage.show_damage(additional_damage_to_enemy_per_turn, 0)
+
+	# # show healing
+	# if player_card._heal_amount > 0:
+	# 	board_damage.show_damage(player_card._heal_amount, 0)
+	# if enemy_card._heal_amount > 0:
+	# 	board_damage.show_damage(0, enemy_card._heal_amount)
+	
+
+	# # reset additional damage per turn
+	# if additional_damage_to_enemy_per_turn > 0:
+	# 	additional_damage_to_enemy_per_turn = additional_damage_to_enemy_per_turn - 1
+	# if additional_damage_to_player_per_turn > 0:
+	# 	additional_damage_to_player_per_turn = additional_damage_to_player_per_turn - 1
+
+
+	# compute total damage that player takes
+	var total_player_damage = 0
 	if damage_difference < 0:
-		board_damage.show_damage(damage_difference, 0)
-	else:
-		board_damage.show_damage(0, -1 * damage_difference)
+		total_player_damage = -1 * damage_difference
+	total_player_damage *= player_card._damage_multiplier_this_round
+	total_player_damage *= damage_multiplier_next_round
+	damage_multiplier_next_round = 1
+	total_player_damage += additional_damage_to_player_per_turn
+	total_player_damage -= player_card._heal_amount
+
+	# compute total damage that enemy takes
+	var total_enemy_damage = 0
+	if damage_difference > 0:
+		total_enemy_damage = damage_difference
+	total_enemy_damage *= enemy_card._damage_multiplier_this_round
+	total_enemy_damage *= damage_multiplier_next_round
+	damage_multiplier_next_round = 1
+	total_enemy_damage += additional_damage_to_enemy_per_turn
+	total_enemy_damage -= enemy_card._heal_amount
+
+	board_damage.show_damage(-1 * total_player_damage, -1 * total_enemy_damage)
+
+	# set additional damage per turn
+	additional_damage_to_player_per_turn += enemy_card._continuous_damage
+	additional_damage_to_enemy_per_turn += player_card._continuous_damage
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
