@@ -27,8 +27,12 @@ var placed_enemy_card: String
 var board_damage: Node
 
 # health
-var player_health: int = 100
-var enemy_health: int = 100
+var player_health: int
+var additional_player_damage_per_turn: int = 0
+var enemy_health: int
+var additional_enemy_damage_per_turn: int = 0
+
+var damage_multiplier_next_round: int = 1
 
 const Cards_Db = preload("res://cards_db.gd")
 var cards_db = Cards_Db.new()
@@ -52,6 +56,8 @@ func reset_game():
 	enemy_cards = []
 	gameState = State.Attack
 	player_first = true
+	enemy_health = 5
+	player_health = 5
 
 	# reset board
 	player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
@@ -172,8 +178,17 @@ func next_turn():
 
 		draw_card(Player.Player)
 		board_damage.hide_damage()
-
+		
 		gameState = 0
+
+		# is anybody dead?
+		if player_health <= 0:
+			print("player lost")
+			reset_game()
+		elif enemy_health <= 0:
+			print("player won")
+			reset_game()
+	
 	
 	if !is_player_turn():
 		play_enemy_turn()
@@ -186,11 +201,22 @@ func handle_placed_cards():
 	
 	# calculate difference between cards
 	var player_card = cards_db.get_card(placed_player_card)
+	print("player_card: ", player_card._name)
 	var enemy_card = cards_db.get_card(placed_enemy_card)
+	print("enemy_card: ", enemy_card._name)
 
 	# calc damage difference
 	var damage_difference = player_card._damage - enemy_card._damage
 	print("damage_difference: ", damage_difference)
+
+	damage_difference *= player_card._damage_multiplier_this_round
+	damage_difference *= enemy_card._damage_multiplier_this_round
+	damage_difference *= damage_multiplier_next_round
+
+	# reset damage multiplier for next round
+	damage_multiplier_next_round = 1
+	damage_multiplier_next_round *= player_card._damage_multiplier_next_round
+	damage_multiplier_next_round *= enemy_card._damage_multiplier_next_round
 
 	# if damage difference is positive, apply damage to enemy
 	if damage_difference > 0:
@@ -200,6 +226,16 @@ func handle_placed_cards():
 		print("player takes damage")
 		# plus because damage_difference is negative
 		player_health = player_health + damage_difference
+
+	# apply additional damage per turn
+	enemy_health = enemy_health - additional_enemy_damage_per_turn
+	if additional_enemy_damage_per_turn > 0:
+		additional_enemy_damage_per_turn = additional_enemy_damage_per_turn - 1
+
+	player_health = player_health - additional_player_damage_per_turn
+	if additional_player_damage_per_turn > 0:
+		additional_player_damage_per_turn = additional_player_damage_per_turn - 1
+	
 
 	return damage_difference
 
