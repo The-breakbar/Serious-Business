@@ -94,8 +94,10 @@ func draw_card(player: Player):
 			player_cards.push_back(drawn_card)
 			add_card_to_hand_scene(drawn_card)
 		else:
+			print("enemy cards: ", enemy_cards)
 			enemy_cards.push_back(drawn_card)
 			print("enemy draws card: ", getCardName(drawn_card))
+			print("enemy cards: ", enemy_cards)
 		# You can add further logic here, e.g., for skipping a turn
 
 		return drawn_card
