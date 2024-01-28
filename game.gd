@@ -20,15 +20,37 @@ func getCardId(cardName: String) -> Card:
 
 var player_card_container: Node
 var player_board_container: Node
+var placed_player_card: String
 var enemy_board_container: Node
+var placed_enemy_card: String
+
+# health
+var player_health: int = 100
+var enemy_health: int = 100
+
+const Cards_Db = preload("res://cards_db.gd")
+var cards_db = Cards_Db.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_card_container = get_node("player/playerContainer")
 	player_board_container = get_node("board/boardContainer/playerBoard")
 	enemy_board_container = get_node("board/boardContainer/enemyBoard")
+	cards_db.init_cards()
 
 	reset_game()
+	# game_loop()
+
+func game_loop():
+	while true:
+		if player_health <= 0:
+			print("player lost")
+			break
+		elif enemy_health <= 0:
+			print("player won")
+			break
+		await get_tree().create_timer(1).timeout
+		next_turn()
 
 func reset_game():
 	# Reset all variables
@@ -70,7 +92,7 @@ func draw_card(player: Player):
 		
 		if player == Player.Player:
 			player_cards.push_back(drawn_card)
-			add_card_to_hand_scene(drawn_card, Player.Player)
+			add_card_to_hand_scene(drawn_card)
 		else:
 			enemy_cards.push_back(drawn_card)
 		# You can add further logic here, e.g., for skipping a turn
@@ -79,7 +101,7 @@ func draw_card(player: Player):
 	else:
 		return null
 
-func add_card_to_hand_scene(card: Card, player: Player):
+func add_card_to_hand_scene(card: Card):
 	var card_scene = load("res://playerCard.tscn")
 	print("getCardName(card): ", getCardName(card))
 	
@@ -89,24 +111,25 @@ func add_card_to_hand_scene(card: Card, player: Player):
 
 	player_card_container.add_child(card_instance)
 
-func player_turn() -> bool:
+func is_player_turn() -> bool:
 	return (gameState == State.Attack && player_first) || (gameState == State.Defense && !player_first)
 
-func card_selected(name: String):
+func card_selected(card_name: String):
 	# if (gameState != State.PlayerAttack && gameState != State.PlayerDefend):
-	if !player_turn():
+	if !is_player_turn():
 		return
 	
 	# gameState = State.EnemyDefend if player_first else State.TurnEnd
-	player_board_container.texture = load("res://assets/cards/" + name + ".png")
+	player_board_container.texture = load("res://assets/cards/" + card_name + ".png")
+	placed_player_card = card_name
 
 	# remove this card from player_cards
-	var card_id = getCardId(name)
+	var card_id = getCardId(card_name)
 	player_cards.erase(card_id)
 
 	# remove this card from player_card_container
 	for child in player_card_container.get_children():
-		if child.get_image() == name:
+		if child.get_image() == card_name:
 			child.queue_free()
 			break
 
@@ -126,6 +149,8 @@ func play_enemy_turn():
 
 	# add card to enemy board
 	enemy_board_container.texture = load("res://assets/cards/" + card_name + ".png")
+	placed_enemy_card = card_name
+	next_turn()
 
 func next_turn():
 	# if (gameState == State.TurnEnd):
@@ -136,12 +161,46 @@ func next_turn():
 	# 	gameState = State.PlayerDefend if !player_first else State.TurnEnd
 
 	if gameState == State.TurnEnd:
+		print("process turn end")
 		player_first = !player_first
+		handle_placed_cards()
+		player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
+		enemy_board_container.texture = load("res://assets/cards/blankEnemyFull.png")
 		gameState = 0
 	else:
 		gameState = gameState + 1
 
-	print("next turn gameState: ", get_state_name(gameState), " for player ", "player" if player_turn() else "enemy")
+	if !is_player_turn():
+		play_enemy_turn()
+
+	print("next turn gameState: ", get_state_name(gameState), " for player ", "player" if is_player_turn() else "enemy")
+
+func handle_placed_cards():
+	if placed_enemy_card == "" && placed_player_card == "":
+		return
+	
+	# calculate difference between cards
+	var player_card = cards_db.get_card(placed_player_card)
+	var enemy_card = cards_db.get_card(placed_enemy_card)
+
+	# calc damage difference
+	var damage_difference = player_card._damage - enemy_card._damage
+	print("damage_difference: ", damage_difference)
+
+	# if damage difference is positive, apply damage to enemy
+	if damage_difference > 0:
+		print("enemy takes damage")
+		enemy_health = enemy_health - damage_difference
+	else:
+		print("player takes damage")
+		# plus because damage_difference is negative
+		player_health = player_health + damage_difference
+	
+	# restock cards
+	draw_card(Player.Player)
+	print("number of player cards: ", player_cards.size())
+	draw_card(Player.Enemy)
+	print("number of enemy cards: ", enemy_cards.size())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
