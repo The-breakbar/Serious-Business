@@ -29,12 +29,12 @@ var animated_bg: Node
 var hp_label: Node
 
 # health
-var MAX_PLAYER_HEALTH: int = 20
+var MAX_PLAYER_HEALTH: int = 15
 var player_health: int
 var additional_damage_to_player_per_turn: int = 0
 var next_player_card_override
 
-var MAX_ENEMY_HEALTH: int = 20
+var MAX_ENEMY_HEALTH: int = 15
 var enemy_health: int
 var additional_damage_to_enemy_per_turn: int = 0
 var next_enemy_card_override
@@ -151,6 +151,8 @@ func card_selected(card_name: String):
 	# if (gameState != State.PlayerAttack && gameState != State.PlayerDefend):
 	if !is_player_turn():
 		return
+
+	get_node("audio/place").play()
 	
 	# gameState = State.EnemyDefend if player_first else State.TurnEnd
 	player_board_container.texture = load("res://assets/cards/" + card_name + ".png")
@@ -172,7 +174,7 @@ func play_enemy_turn():
 	print("ENEMY TURN TIMEOUT START")
 
 	# wait 3 second
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(2).timeout
 
 	print("ENEMY TURN TIMEOUT END")
 
@@ -188,6 +190,7 @@ func play_enemy_turn():
 
 	# add card to enemy board
 	enemy_board_container.texture = load("res://assets/cards/" + card_name + ".png")
+	get_node("audio/place").play()
 	placed_enemy_card = card_name
 	print("enemy plays card: ", card_name)
 	draw_card(Player.Enemy)
@@ -211,13 +214,15 @@ func next_turn():
 		# change background animation if necessary
 		var fight_progress = 1 - float(max(0, enemy_health)) / float(MAX_ENEMY_HEALTH)
 		var animationIndex = "0"
-		if fight_progress > 0.5:
+		if fight_progress > 0.3:
 			animationIndex = "1"
-		if fight_progress > 0.75:
+		if fight_progress > 0.6:
 			animationIndex = "2"
 		if fight_progress == 1:
 			animationIndex = "3"
 		animated_bg.set_animation(animationIndex)
+
+		get_node("audio/hurt").play()
 
 		await get_tree().create_timer(2).timeout
 
@@ -227,22 +232,30 @@ func next_turn():
 		gameState = 0
 
 		# is anybody dead?
-		if player_health <= 0:
-			get_node("player").visible = false
-			get_node("board").visible = false
-			get_node("enemy").visible = false
-			get_node("gameLoose").visible = true
-
-			await get_tree().create_timer(5).timeout
-
-			reset_game()
-		elif enemy_health <= 0:
+		if enemy_health <= 0:
 			get_node("player").visible = false
 			get_node("board").visible = false
 			get_node("enemy").visible = false
 			get_node("gameWin").visible = true
 			
+			get_node("audio/bg").stop()
+			get_node("audio/win").play()
 			await get_tree().create_timer(5).timeout
+
+			get_node("audio/bgMusic").play()
+
+			reset_game()
+		elif player_health <= 0:
+			get_node("player").visible = false
+			get_node("board").visible = false
+			get_node("enemy").visible = false
+			get_node("gameLoose").visible = true
+
+			get_node("audio/bgMusic").stop()
+			get_node("audio/loose").play()
+			await get_tree().create_timer(5).timeout
+
+			get_node("audio/bg").play()
 
 			reset_game()
 

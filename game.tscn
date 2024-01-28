@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://du25frwktke07"]
+[gd_scene load_steps=22 format=3 uid="uid://du25frwktke07"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_svep8"]
 [ext_resource type="Texture2D" uid="uid://s7jbsxpn1a2b" path="res://assets/gradient.png" id="2_h4xnb"]
@@ -16,6 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://dxrtwsnc63h0o" path="res://assets/bg/bg_3_s1.png" id="9_6s40y"]
 [ext_resource type="Theme" uid="uid://vj12bkoc4uf0" path="res://pixel.tres" id="14_r7w6h"]
 [ext_resource type="Script" path="res://damageIndicator.gd" id="15_0mwwr"]
+[ext_resource type="AudioStream" uid="uid://ct8embgbhnyb8" path="res://assets/audio/place.mp3" id="17_4uo36"]
+[ext_resource type="AudioStream" uid="uid://dpwheq45j1wpx" path="res://assets/audio/hurt.mp3" id="18_vscty"]
+[ext_resource type="AudioStream" uid="uid://b03sw63esh5ht" path="res://assets/audio/win.mp3" id="19_rh38n"]
+[ext_resource type="AudioStream" uid="uid://c013bfwanvs1e" path="res://assets/audio/loose.mp3" id="20_xhrc0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kl230"]
 animations = [{
@@ -252,8 +256,24 @@ horizontal_alignment = 1
 
 [node name="bgMusic" type="AudioStreamPlayer" parent="audio"]
 stream = ExtResource("7_20hd6")
-volume_db = -15.522
+volume_db = -13.969
 autoplay = true
+
+[node name="place" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("17_4uo36")
+volume_db = -9.313
+
+[node name="hurt" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("18_vscty")
+volume_db = -5.433
+
+[node name="win" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("19_rh38n")
+volume_db = -5.432
+
+[node name="loose" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("20_xhrc0")
+volume_db = -5.433
 
 [node name="gameWin" type="Control" parent="."]
 visible = false
