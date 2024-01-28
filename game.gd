@@ -238,7 +238,7 @@ func next_turn():
 			get_node("enemy").visible = false
 			get_node("gameWin").visible = true
 			
-			get_node("audio/bg").stop()
+			get_node("audio/bgMusic").stop()
 			get_node("audio/win").play()
 			await get_tree().create_timer(5).timeout
 
@@ -255,7 +255,7 @@ func next_turn():
 			get_node("audio/loose").play()
 			await get_tree().create_timer(5).timeout
 
-			get_node("audio/bg").play()
+			get_node("audio/bgMusic").play()
 
 			reset_game()
 
