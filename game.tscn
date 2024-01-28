@@ -1,11 +1,66 @@
-[gd_scene load_steps=7 format=3 uid="uid://du25frwktke07"]
+[gd_scene load_steps=16 format=3 uid="uid://du25frwktke07"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_svep8"]
 [ext_resource type="Texture2D" uid="uid://s7jbsxpn1a2b" path="res://assets/gradient.png" id="2_h4xnb"]
-[ext_resource type="Texture2D" uid="uid://7sb55aokadjj" path="res://assets/bg_0.png" id="2_j5tf7"]
 [ext_resource type="PackedScene" uid="uid://cttcw5gtidtkc" path="res://playerCard.tscn" id="2_jxatm"]
+[ext_resource type="Texture2D" uid="uid://b8tu3dojikam3" path="res://assets/bg/bg_0_s0.png" id="3_ie1ry"]
+[ext_resource type="Texture2D" uid="uid://fl68o0au3l27" path="res://assets/bg/bg_1_s0.png" id="4_5xxby"]
+[ext_resource type="Texture2D" uid="uid://ctru3q8dg75ei" path="res://assets/bg/bg_0_s1.png" id="4_ppal6"]
 [ext_resource type="Texture2D" uid="uid://ctle12uhmh0s" path="res://assets/cards/blankEnemyFull.png" id="4_rvegr"]
+[ext_resource type="Texture2D" uid="uid://drdp0507e2wbf" path="res://assets/bg/bg_1_s1.png" id="5_1pvh4"]
 [ext_resource type="Texture2D" uid="uid://drkirg7bed530" path="res://assets/cards/blankPlayerFull.png" id="5_5v57v"]
+[ext_resource type="Texture2D" uid="uid://586v83s2mnfa" path="res://assets/bg/bg_2_s0.png" id="6_b8owo"]
+[ext_resource type="AudioStream" uid="uid://dr2c2aw1ywdyh" path="res://assets/audio/bg.mp3" id="7_20hd6"]
+[ext_resource type="Texture2D" uid="uid://dma25tba1bc7c" path="res://assets/bg/bg_2_s1.png" id="7_obbly"]
+[ext_resource type="Texture2D" uid="uid://dhr3e3fauj5f7" path="res://assets/bg/bg_3_s0.png" id="8_2bfj8"]
+[ext_resource type="Texture2D" uid="uid://dxrtwsnc63h0o" path="res://assets/bg/bg_3_s1.png" id="9_6s40y"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kl230"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ie1ry")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ppal6")
+}],
+"loop": true,
+"name": &"stage0",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_5xxby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1pvh4")
+}],
+"loop": true,
+"name": &"stage1",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_b8owo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_obbly")
+}],
+"loop": true,
+"name": &"stage2",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_2bfj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6s40y")
+}],
+"loop": true,
+"name": &"stage3",
+"speed": 1.0
+}]
 
 [node name="game" type="Control"]
 texture_filter = 1
@@ -26,21 +81,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_svep8")
 
-[node name="bg" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 180.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_j5tf7")
-stretch_mode = 2
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_kl230")
+animation = &"stage0"
+autoplay = "stage0"
 
 [node name="player" type="Control" parent="."]
 layout_mode = 1
@@ -114,3 +159,10 @@ layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("5_5v57v")
 stretch_mode = 2
+
+[node name="audio" type="Node" parent="."]
+
+[node name="bgMusic" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("7_20hd6")
+volume_db = -28.716
+autoplay = true
