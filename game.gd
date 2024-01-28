@@ -26,7 +26,7 @@ var placed_enemy_card: String
 
 var board_damage: Node
 var animated_bg: Node
-
+var hp_label: Node
 
 # health
 var MAX_PLAYER_HEALTH: int = 20
@@ -53,6 +53,7 @@ func _ready():
 
 	board_damage = get_node("board")
 	animated_bg = get_node("animatedBg")
+	hp_label = get_node("player/hp/hpLabel")
 
 	reset_game()
 	# game_loop()
@@ -75,6 +76,7 @@ func reset_game():
 	# reset board
 	player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
 	enemy_board_container.texture = load("res://assets/cards/blankEnemyFull.png")
+	hp_label.text = str(player_health) + "/" + str(MAX_PLAYER_HEALTH)
 
 	animated_bg.set_animation("0")
 
@@ -201,6 +203,8 @@ func next_turn():
 		await get_tree().create_timer(2).timeout
 
 		handle_placed_cards()
+		hp_label.text = str(max(0, player_health)) + "/" + str(MAX_PLAYER_HEALTH)
+
 		player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
 		enemy_board_container.texture = load("res://assets/cards/blankEnemyFull.png")
 
@@ -224,12 +228,29 @@ func next_turn():
 
 		# is anybody dead?
 		if player_health <= 0:
-			print("player lost")
+			get_node("player").visible = false
+			get_node("board").visible = false
+			get_node("enemy").visible = false
+			get_node("gameLoose").visible = true
+
+			await get_tree().create_timer(5).timeout
+
 			reset_game()
 		elif enemy_health <= 0:
-			print("player won")
+			get_node("player").visible = false
+			get_node("board").visible = false
+			get_node("enemy").visible = false
+			get_node("gameWin").visible = true
+			
+			await get_tree().create_timer(5).timeout
+
 			reset_game()
-	
+
+		get_node("player").visible = true
+		get_node("board").visible = true
+		get_node("enemy").visible = true
+		get_node("gameWin").visible = false
+		get_node("gameLoose").visible = false
 	
 	if !is_player_turn():
 		play_enemy_turn()

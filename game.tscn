@@ -148,10 +148,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -25.5
-offset_right = 24.0
-offset_bottom = 25.5
+offset_left = -22.0
+offset_top = -47.0
+offset_right = 26.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("14_r7w6h")
@@ -160,6 +160,27 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 48
 text = "-1"
+horizontal_alignment = 1
+
+[node name="hpLabel" type="Label" parent="player/hp"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -11.0
+offset_right = 46.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("14_r7w6h")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 48
+text = "17/17"
 horizontal_alignment = 1
 
 [node name="board" type="Control" parent="."]
@@ -233,3 +254,63 @@ horizontal_alignment = 1
 stream = ExtResource("7_20hd6")
 volume_db = -15.522
 autoplay = true
+
+[node name="gameWin" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="gameWin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.0
+offset_top = -24.0
+offset_right = 86.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("14_r7w6h")
+theme_override_colors/font_color = Color(0.317647, 0.831373, 0.372549, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 7
+theme_override_font_sizes/font_size = 64
+text = "YOU WIN!"
+
+[node name="gameLoose" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="gameLoose"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.0
+offset_top = -24.0
+offset_right = 86.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("14_r7w6h")
+theme_override_colors/font_color = Color(1, 0.0823529, 0.0745098, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 7
+theme_override_font_sizes/font_size = 64
+text = "YOU LOOSE!"
