@@ -11,7 +11,7 @@ var player_first: bool
 var gameState: State
 
 enum Player {Player, Enemy}
-enum Card {troll, sitcom, crewmate}
+enum Card {troll, sitcom, crewmate, rick}
 func getCardName(card: Card) -> String:
 	return Card.keys()[card]
 
