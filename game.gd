@@ -24,6 +24,8 @@ var placed_player_card: String
 var enemy_board_container: Node
 var placed_enemy_card: String
 
+var board_damage: Node
+
 # health
 var player_health: int = 100
 var enemy_health: int = 100
@@ -38,27 +40,18 @@ func _ready():
 	enemy_board_container = get_node("board/boardContainer/enemyBoard")
 	cards_db.init_cards()
 
+	board_damage = get_node("board")
+
 	reset_game()
 	# game_loop()
-
-func game_loop():
-	while true:
-		if player_health <= 0:
-			print("player lost")
-			break
-		elif enemy_health <= 0:
-			print("player won")
-			break
-		await get_tree().create_timer(1).timeout
-		next_turn()
 
 func reset_game():
 	# Reset all variables
 	card_array = []
 	player_cards = []
 	enemy_cards = []
-	gameState = State.TurnEnd
-	player_first = false
+	gameState = State.Attack
+	player_first = true
 
 	# reset board
 	player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
@@ -74,8 +67,6 @@ func reset_game():
 	for i in range(3):
 		draw_card(Player.Player)
 		draw_card(Player.Enemy)
-
-	next_turn()
 
 func load_cards():
 	# Load all cardnames into array
@@ -139,8 +130,12 @@ func card_selected(card_name: String):
 	next_turn()
 
 func play_enemy_turn():
+	print("ENEMY TURN TIMEOUT START")
+
 	# wait 3 second
 	await get_tree().create_timer(3).timeout
+
+	print("ENEMY TURN TIMEOUT END")
 
 	# select random enemy card
 	var random_index = randi() % enemy_cards.size()
@@ -150,30 +145,36 @@ func play_enemy_turn():
 	# remove this card from enemy_cards
 	enemy_cards.erase(card_id)
 
+	print("remove card from enemy hand: ", card_name)
+
 	# add card to enemy board
 	enemy_board_container.texture = load("res://assets/cards/" + card_name + ".png")
 	placed_enemy_card = card_name
+	print("enemy plays card: ", card_name)
 	draw_card(Player.Enemy)
 	next_turn()
 
 func next_turn():
-	# if (gameState == State.TurnEnd):
-	# 	gameState = State.PlayerAttack if player_first else State.EnemyAttack
-	# 	player_first = !player_first
-	# elif (gameState == State.EnemyAttack || gameState == State.EnemyDefend):
-	# 	play_enemy_turn()
-	# 	gameState = State.PlayerDefend if !player_first else State.TurnEnd
+	gameState = gameState + 1
 
 	if gameState == State.TurnEnd:
 		print("process turn end")
 		player_first = !player_first
-		handle_placed_cards()
+		var damage = handle_placed_cards()
+		
+		await get_tree().create_timer(2).timeout
+
 		player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
 		enemy_board_container.texture = load("res://assets/cards/blankEnemyFull.png")
-		gameState = 0
-	else:
-		gameState = gameState + 1
+		board_damage.show_damage(damage)
 
+		await get_tree().create_timer(2).timeout
+
+		draw_card(Player.Player)
+		board_damage.hide_damage()
+
+		gameState = 0
+	
 	if !is_player_turn():
 		play_enemy_turn()
 
@@ -199,12 +200,8 @@ func handle_placed_cards():
 		print("player takes damage")
 		# plus because damage_difference is negative
 		player_health = player_health + damage_difference
-	
-	# restock cards
-	draw_card(Player.Player)
-	print("number of player cards: ", player_cards.size())
-	# draw_card(Player.Enemy)
-	# print("number of enemy cards: ", enemy_cards.size())
+
+	return damage_difference
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -14,7 +14,7 @@ func _ready():
 func show_damage(damage):
 	var text = "-" + str(abs(damage))
 
-	if damage > 0:
+	if damage >= 0:
 		enemy_label.text = text
 		enemy_label.visible = true
 	else:
