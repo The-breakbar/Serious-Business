@@ -17,9 +17,9 @@ func show_damage(playerDamage, enemyDamage):
 		player_label.text = prefix + str(playerDamage)
 
 		if playerDamage > 0:
-			player_label.set("custom_colors/font_color", Color(0, 1, 0))
+			player_label.add_theme_color_override("font_color", Color(0, 1, 0))
 		else:
-			player_label.set("custom_colors/font_color", Color(1, 0, 0))
+			player_label.add_theme_color_override("font_color", Color(1, 0, 0))
 
 		player_label.visible = true
 
@@ -28,9 +28,9 @@ func show_damage(playerDamage, enemyDamage):
 		enemy_label.text = prefix + str(enemyDamage)
 
 		if enemyDamage > 0:
-			enemy_label.set("custom_colors/font_color", Color(0, 1, 0))
+			enemy_label.add_theme_color_override("font_color", Color(0, 1, 0))
 		else:
-			enemy_label.set("custom_colors/font_color", Color(1, 0, 0))
+			enemy_label.add_theme_color_override("font_color", Color(1, 0, 0))
 
 		enemy_label.visible = true
 
