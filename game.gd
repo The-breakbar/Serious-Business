@@ -26,6 +26,7 @@ var placed_enemy_card: String
 
 var board_damage: Node
 
+
 # health
 var player_health: int
 var additional_player_damage_per_turn: int = 0
@@ -166,13 +167,12 @@ func next_turn():
 	if gameState == State.TurnEnd:
 		print("process turn end")
 		player_first = !player_first
-		var damage = handle_placed_cards()
 		
 		await get_tree().create_timer(2).timeout
 
+		handle_placed_cards()
 		player_board_container.texture = load("res://assets/cards/blankPlayerFull.png")
 		enemy_board_container.texture = load("res://assets/cards/blankEnemyFull.png")
-		board_damage.show_damage(damage)
 
 		await get_tree().create_timer(2).timeout
 
@@ -236,8 +236,10 @@ func handle_placed_cards():
 	if additional_player_damage_per_turn > 0:
 		additional_player_damage_per_turn = additional_player_damage_per_turn - 1
 	
-
-	return damage_difference
+	if damage_difference < 0:
+		board_damage.show_damage(damage_difference, 0)
+	else:
+		board_damage.show_damage(0, -1 * damage_difference)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

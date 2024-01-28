@@ -11,15 +11,28 @@ func _ready():
 	hide_damage()
 
 
-func show_damage(damage):
-	var text = "-" + str(abs(damage))
+func show_damage(playerDamage, enemyDamage):
+	if playerDamage != 0:
+		var prefix = "+" if playerDamage > 0 else ""
+		player_label.text = prefix + str(playerDamage)
 
-	if damage >= 0:
-		enemy_label.text = text
-		enemy_label.visible = true
-	else:
-		player_label.text = text
+		if playerDamage > 0:
+			player_label.set("custom_colors/font_color", Color(0, 1, 0))
+		else:
+			player_label.set("custom_colors/font_color", Color(1, 0, 0))
+
 		player_label.visible = true
+
+	if (enemyDamage != 0) || (enemyDamage == 0 && playerDamage == 0):
+		var prefix = "+" if enemyDamage > 0 else ("-" if enemyDamage == 0 else "")
+		enemy_label.text = prefix + str(enemyDamage)
+
+		if enemyDamage > 0:
+			enemy_label.set("custom_colors/font_color", Color(0, 1, 0))
+		else:
+			enemy_label.set("custom_colors/font_color", Color(1, 0, 0))
+
+		enemy_label.visible = true
 
 	
 func hide_damage():
