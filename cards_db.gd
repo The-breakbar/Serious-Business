@@ -17,23 +17,31 @@ class Card_Class:
 	var _name = ""
 	var _description = ""
 	var _damage = 0
+	var _continuous_damage = 0
+	var _damage_multiplier_next_round = 1
+	var _damage_multiplier_this_round = 1
+	var _heal_amount = 0
 	var _effects = []
 
-	func _init(name, description, damage, effects):
+	func _init(name, description, damage, effects, continuous_damage = 0, damage_multiplier_next_round = 1, damage_multiplier_this_round = 1, heal_amount = 0):
 		self._name = name
 		self._description = description
 		self._damage = damage
 		self._effects = effects
+		self._continuous_damage = continuous_damage
+		self._damage_multiplier_next_round = damage_multiplier_next_round
+		self._damage_multiplier_this_round = damage_multiplier_this_round
+		self._heal_amount = heal_amount
 
 enum EffectType { 
 	# the different types of effects
-	DAMAGE, HEAL, DRAW, DISCARD, SHUFFLE, REPEAT, END
+	DAMAGE, HEAL, DRAW, DISCARD, SHUFFLE, REPEAT, END, STUN
 }
 
 func init_cards():
-	add_card(Card_Class.new("troll", "Trollface Meme", 5, [EffectType.DAMAGE]))
-	add_card(Card_Class.new("sitcom", "Friends Jingle", 3, [EffectType.DAMAGE]))
+	add_card(Card_Class.new("troll", "Trollface Meme", 4, [EffectType.DAMAGE], 0, 2, 1, 0))
+	add_card(Card_Class.new("sitcom", "Friends Jingle", 3, [EffectType.DAMAGE], 1, 1, 1, 0))
 	# add_card(Card_Class.new("meme", "Doge Meme", 2, [EffectType.DAMAGE]))
-	add_card(Card_Class.new("rick", "Rickroll", 7, [EffectType.DAMAGE]))
-	add_card(Card_Class.new("crewmate", "Sussy Amongus", 6, [EffectType.DAMAGE]))
-	add_card(Card_Class.new("cat", "Funny Cat", 4, [EffectType.DAMAGE]))
+	add_card(Card_Class.new("rick", "Rickroll", 7, [EffectType.DAMAGE, EffectType.STUN]))
+	add_card(Card_Class.new("crewmate", "Sussy Amongus", 5, [EffectType.DAMAGE]))
+	add_card(Card_Class.new("cat", "Funny Cat", 3, [EffectType.DAMAGE], 0, 1, 1, 3))
