@@ -5,12 +5,10 @@ var player_label : Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	enemy_label = get_node("enemy/enemyDamage")
-	player_label = get_node("player/hp/playerDamage")
+	enemy_label = get_node("../enemy/enemyDamage")
+	player_label = get_node("../player/hp/playerDamage")
 
 	hide_damage()
-
-	show_damage(-10)
 
 
 func show_damage(damage):

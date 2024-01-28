@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://du25frwktke07"]
+[gd_scene load_steps=18 format=3 uid="uid://du25frwktke07"]
 
+[ext_resource type="Script" path="res://game.gd" id="1_svep8"]
 [ext_resource type="Texture2D" uid="uid://s7jbsxpn1a2b" path="res://assets/gradient.png" id="2_h4xnb"]
 [ext_resource type="PackedScene" uid="uid://cttcw5gtidtkc" path="res://playerCard.tscn" id="2_jxatm"]
 [ext_resource type="Texture2D" uid="uid://b8tu3dojikam3" path="res://assets/bg/bg_0_s0.png" id="3_ie1ry"]
@@ -80,7 +81,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("15_0mwwr")
+script = ExtResource("1_svep8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(320, 180)
@@ -171,6 +172,7 @@ offset_top = -44.0
 offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("15_0mwwr")
 
 [node name="boardContainer" type="HBoxContainer" parent="board"]
 layout_mode = 1
