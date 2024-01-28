@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://du25frwktke07"]
+[gd_scene load_steps=18 format=3 uid="uid://du25frwktke07"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_svep8"]
 [ext_resource type="Texture2D" uid="uid://s7jbsxpn1a2b" path="res://assets/gradient.png" id="2_h4xnb"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://dma25tba1bc7c" path="res://assets/bg/bg_2_s1.png" id="7_obbly"]
 [ext_resource type="Texture2D" uid="uid://dhr3e3fauj5f7" path="res://assets/bg/bg_3_s0.png" id="8_2bfj8"]
 [ext_resource type="Texture2D" uid="uid://dxrtwsnc63h0o" path="res://assets/bg/bg_3_s1.png" id="9_6s40y"]
+[ext_resource type="Theme" uid="uid://vj12bkoc4uf0" path="res://pixel.tres" id="14_r7w6h"]
+[ext_resource type="Script" path="res://damageIndicator.gd" id="15_0mwwr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kl230"]
 animations = [{
@@ -127,6 +129,39 @@ alignment = 1
 [node name="exampleCard" parent="player/playerContainer" instance=ExtResource("2_jxatm")]
 layout_mode = 2
 
+[node name="hp" type="Control" parent="player"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -124.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="playerDamage" type="Label" parent="player/hp"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -25.5
+offset_right = 24.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("14_r7w6h")
+theme_override_colors/font_color = Color(1, 0.219608, 0.254902, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 48
+text = "-1"
+horizontal_alignment = 1
+
 [node name="board" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 14
@@ -137,6 +172,7 @@ offset_top = -44.0
 offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("15_0mwwr")
 
 [node name="boardContainer" type="HBoxContainer" parent="board"]
 layout_mode = 1
@@ -159,6 +195,37 @@ layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("5_5v57v")
 stretch_mode = 2
+
+[node name="enemy" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1.0
+offset_right = 62.0
+offset_bottom = 89.0
+grow_horizontal = 2
+
+[node name="enemyDamage" type="Label" parent="enemy"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -25.5
+offset_right = 24.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("14_r7w6h")
+theme_override_colors/font_color = Color(1, 0.219608, 0.254902, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 48
+text = "-1"
+horizontal_alignment = 1
 
 [node name="audio" type="Node" parent="."]
 

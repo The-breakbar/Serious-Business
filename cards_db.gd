@@ -39,9 +39,9 @@ enum EffectType {
 }
 
 func init_cards():
-	add_card(Card_Class.new("troll", "Trollface Meme", 4, [EffectType.DAMAGE], 0, 2, 1, 0))
-	add_card(Card_Class.new("sitcom", "Friends Jingle", 3, [EffectType.DAMAGE], 1, 1, 1, 0))
+	add_card(Card_Class.new("troll", "Trollface Meme", 3, [EffectType.DAMAGE], 0, 2, 1, 0))
+	add_card(Card_Class.new("sitcom", "Friends Jingle", 4, [EffectType.DAMAGE], 1, 1, 1, 0))
 	# add_card(Card_Class.new("meme", "Doge Meme", 2, [EffectType.DAMAGE]))
-	add_card(Card_Class.new("rick", "Rickroll", 7, [EffectType.DAMAGE, EffectType.STUN]))
+	add_card(Card_Class.new("rick", "Rickroll", 6, [EffectType.DAMAGE, EffectType.STUN]))
 	add_card(Card_Class.new("crewmate", "Sussy Amongus", 5, [EffectType.DAMAGE]))
 	add_card(Card_Class.new("cat", "Funny Cat", 3, [EffectType.DAMAGE], 0, 1, 1, 3))
