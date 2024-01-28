@@ -3,6 +3,7 @@ extends Control
 @export var image = "blank"
 
 var highlight = false
+var game_node : Node
 
 signal clicked(name)
 
