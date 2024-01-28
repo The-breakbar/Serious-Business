@@ -29,12 +29,12 @@ var animated_bg: Node
 
 
 # health
-var MAX_PLAYER_HEALTH: int = 5
+var MAX_PLAYER_HEALTH: int = 20
 var player_health: int
 var additional_damage_to_player_per_turn: int = 0
 var next_player_card_override
 
-var MAX_ENEMY_HEALTH: int = 5
+var MAX_ENEMY_HEALTH: int = 20
 var enemy_health: int
 var additional_damage_to_enemy_per_turn: int = 0
 var next_enemy_card_override
@@ -322,6 +322,10 @@ func handle_placed_cards():
 	# set additional damage per turn
 	additional_damage_to_player_per_turn += enemy_card._continuous_damage
 	additional_damage_to_enemy_per_turn += player_card._continuous_damage
+
+	# set damage multiplier next round
+	damage_multiplier_next_round *= player_card._damage_multiplier_next_round
+	damage_multiplier_next_round *= enemy_card._damage_multiplier_next_round
 
 	# apply damage
 	print("player health: ", player_health, " enemy health: ", enemy_health)
