@@ -22,10 +22,9 @@ window/size/mode=3
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
-[editor]
+[filesystem]
 
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
+import/blender/enabled=false
 
 [rendering]
 
