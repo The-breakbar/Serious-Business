@@ -2,7 +2,7 @@
 
 ![Screenshot](assets/screenshot.png)
 
-### **Play the game here: https://breakbar.itch.io/serious-business**
+### **Play the game in your browser here: https://breakbar.itch.io/serious-business**
 
 You are about to close the deal of a lifetime with the CEO of jokes. However, he is not easily impressed, and to convince him, you have to show him your best joke assets. Defeat him by playing cards, and countering the ones he plays.
 
